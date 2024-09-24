@@ -32,4 +32,13 @@ public sealed class SpidCieOptions
         CieOPs.AddRange(conf.CieOPs);
         Aggregators.AddRange(conf.Aggregators);
     }
+
+    public void LoadFromConfiguration(SpidCieConfiguration conf)
+    {
+        RequestRefreshToken = conf.RequestRefreshToken;
+        RelyingParties.AddRange(conf.RelyingParties);
+        SpidOPs.AddRange(conf.SpidOPs);
+        CieOPs.AddRange(conf.CieOPs);
+        Aggregators.AddRange(conf.Aggregators);
+    }
 }

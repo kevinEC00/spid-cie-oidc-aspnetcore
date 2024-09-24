@@ -1,11 +1,11 @@
-﻿using Spid.Cie.OIDC.AspNetCore.Models;
+using Spid.Cie.OIDC.AspNetCore.Models;
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 
 namespace Spid.Cie.OIDC.AspNetCore.Services;
 
-internal interface ICryptoService
+public interface ICryptoService
 {
     string CreateClientAssertion(string aud, string clientId, X509Certificate2 certificate);
     string DecodeJose(string jose, X509Certificate2 certificate);

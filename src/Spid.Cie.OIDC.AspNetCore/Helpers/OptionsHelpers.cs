@@ -7,21 +7,22 @@ using System.Text.Json;
 
 namespace Spid.Cie.OIDC.AspNetCore.Helpers;
 
-internal static class OptionsHelpers
+public static class OptionsHelpers
 {
     internal static SpidCieConfiguration CreateFromConfiguration(IConfiguration configuration)
     {
+        return CreateFromConfiguration(configuration, new SpidCieConfiguration());
+    }
+    public static SpidCieConfiguration CreateFromConfiguration(IConfiguration configuration, SpidCieConfiguration options)
+    {
         var section = configuration.GetSection("SpidCie");
-        var options = new SpidCieConfiguration
-        {
-            RequestRefreshToken = section?.GetValue<bool?>("RequestRefreshToken") ?? false,
-            SpidOPs = section?.GetSection("SpidOPs")?.Get<List<string>?>() ?? new List<string>(),
-            CieOPs = section?.GetSection("CieOPs")?.Get<List<string>?>() ?? new List<string>(),
-        };
+
 
         if (section is null)
             return options;
-
+        options.RequestRefreshToken = section?.GetValue<bool?>("RequestRefreshToken") ?? false;
+        options.SpidOPs = section?.GetSection("SpidOPs")?.Get<List<string>?>() ?? new List<string>();
+        options.CieOPs = section?.GetSection("CieOPs")?.Get<List<string>?>() ?? new List<string>();
         foreach (var relyingPartySection in section
                .GetSection("RelyingParties")?
                .GetChildren()?

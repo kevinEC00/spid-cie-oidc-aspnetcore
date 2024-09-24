@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
@@ -112,11 +112,11 @@ public static class ApplicationBuilderExtensions
     internal const string AuthenticationMiddlewareSetKey = "__AuthenticationMiddlewareSet";
     public static IApplicationBuilder UseSpidCieOIDC(this IApplicationBuilder builder)
     {
-        if (builder.Properties.ContainsKey(AuthenticationMiddlewareSetKey)
-            && (bool)builder.Properties[AuthenticationMiddlewareSetKey])
-        {
-            throw new Exception($"{nameof(UseSpidCieOIDC)}() must be called before UseAuthentication()");
-        }
+        //if (builder.Properties.ContainsKey(AuthenticationMiddlewareSetKey)
+        //    && (bool)builder.Properties[AuthenticationMiddlewareSetKey])
+        //{
+        //    throw new Exception($"{nameof(UseSpidCieOIDC)}() must be called before UseAuthentication()");
+        //}
 
         return builder.UseMiddleware<CallbackRewriteMiddleware>()
             .UseMiddleware<RPOpenIdFederationMiddleware>()

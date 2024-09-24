@@ -12,12 +12,12 @@ public sealed class SpidCieConst
     /// <summary>
     /// The default authentication type used when registering the SpidHandler.
     /// </summary>
-    public const string AuthenticationScheme = "SpidCieOIDC";
+    public const string AuthenticationScheme = "CIE";
 
     /// <summary>
     /// The default display name used when registering the SpidHandler.
     /// </summary>
-    public const string DisplayName = "SpidCieOIDC";
+    public const string DisplayName = "CIE";
 
     /// <summary>
     /// Constant used to identify userstate inside AuthenticationProperties that have been serialized in the 'wctx' parameter.
@@ -130,7 +130,7 @@ public sealed class SpidCieConst
 
     public const string Token = "token";
 
-    public const string IdPSelectorKey = "provider";
+    public const string IdPSelectorKey = "oidcidp";
 
     public const string RPSelectorKey = "clientId";
 

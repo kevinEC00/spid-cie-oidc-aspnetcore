@@ -4,7 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 namespace Spid.Cie.OIDC.AspNetCore.Models;
 
 [ExcludeFromCodeCoverage]
-internal sealed class SpidCieConfiguration
+public sealed class SpidCieConfiguration
 {
     public bool RequestRefreshToken { get; set; } = false;
 

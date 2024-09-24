@@ -131,14 +131,14 @@ internal sealed class IdPMetadata_SpidCieOIDCConfiguration
 }
 
 [ExcludeFromCodeCoverage]
-internal sealed class JWKS
+public sealed class JWKS
 {
     [JsonPropertyName("keys")]
     public List<JsonWebKey> Keys { get; set; } = new();
 }
 
 [ExcludeFromCodeCoverage]
-internal class JsonWebKey
+public class JsonWebKey
 {
     public string kty { get; set; }
     public string use { get; set; }

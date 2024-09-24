@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Authentication.OpenIdConnect;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace Spid.Cie.OIDC.AspNetCore.Events;
 
-internal class SpidCieEvents : OpenIdConnectEvents
+public class SpidCieEvents : OpenIdConnectEvents
 {
     private readonly IOptionsMonitor<SpidCieOptions> _options;
     private readonly IRelyingPartySelector _rpSelector;
