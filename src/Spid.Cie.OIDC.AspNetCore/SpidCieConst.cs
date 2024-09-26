@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Diagnostics.CodeAnalysis;
 
 namespace Spid.Cie.OIDC.AspNetCore;
@@ -33,7 +33,7 @@ public sealed class SpidCieConst
     public const string RPSubjectType = "pairwise";
     public const string PromptParameter = "prompt";
     public const string RPSelectorKey = "clientId";
-    public const string IdPSelectorKey = "provider";
+    public const string IdPSelectorKey = "oidcidp";
     public const string DisplayName = "CIE";// The default display name used when registering the SpidHandler.
     public const string FetchEndpointPath = "fetch";
     public const string RedirectUri = "redirect_uri";

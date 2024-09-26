@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Configuration;
 using Spid.Cie.OIDC.AspNetCore.Enums;
 using Spid.Cie.OIDC.AspNetCore.Models;
 using System;
@@ -45,12 +45,12 @@ public static class OptionsHelpers
                 RedirectUris = new List<string>() { $"{(relyingPartySection.GetValue<string?>("Id") ?? string.Empty).RemoveTrailingSlash()}{SpidCieConst.CallbackPath}" },
                 LongSessionsEnabled = relyingPartySection.GetValue<bool?>("LongSessionsEnabled") ?? false,
                 AuthorityHints = relyingPartySection.GetSection("AuthorityHints").Get<List<string>?>() ?? new List<string>(),
-                TrustMarks = relyingPartySection.GetSection("TrustMarks").GetChildren()
+                TrustMarks = relyingPartySection.GetSection("trust_marks").GetChildren()
                     .Select(trustMarksSection => new TrustMarkDefinition()
                     {
                         Id = trustMarksSection.GetValue<string>("Id"),
-                        Issuer = trustMarksSection.GetValue<string>("Issuer"),
-                        TrustMark = trustMarksSection.GetValue<string>("TrustMark")
+                        Issuer = trustMarksSection.GetValue<string>("iss"),
+                        TrustMark = trustMarksSection.GetValue<string>("trust_mark")
                     }).ToList(),
                 OpenIdFederationCertificates = relyingPartySection.GetSection("OpenIdFederationCertificates").GetChildren()
                     .Select(GetCertificate)
