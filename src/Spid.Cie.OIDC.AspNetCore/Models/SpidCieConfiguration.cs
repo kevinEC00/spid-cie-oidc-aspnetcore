@@ -15,5 +15,4 @@ public sealed class SpidCieConfiguration
     public List<string> SpidOPs { get; set; } = new();
 
     public List<string> CieOPs { get; set; } = new();
-
 }

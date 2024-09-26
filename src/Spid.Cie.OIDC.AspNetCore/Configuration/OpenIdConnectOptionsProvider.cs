@@ -2,7 +2,6 @@
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Protocols;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
-using Spid.Cie.OIDC.AspNetCore.Models;
 using Spid.Cie.OIDC.AspNetCore.Services;
 using System;
 using System.Collections.Concurrent;
@@ -12,14 +11,14 @@ using System.Threading.Tasks;
 
 namespace Spid.Cie.OIDC.AspNetCore.Configuration;
 
-internal class OpenIdConnectOptionsProvider : IOptionsMonitor<OpenIdConnectOptions>
+class OpenIdConnectOptionsProvider : IOptionsMonitor<OpenIdConnectOptions>
 {
-    private readonly ConcurrentDictionary<string, Lazy<OpenIdConnectOptions>> _cache;
-    private readonly IOptionsFactory<OpenIdConnectOptions> _optionsFactory;
-    private readonly IIdentityProviderSelector _idpSelector;
-    private readonly IConfigurationManager<OpenIdConnectConfiguration> _configurationManager;
-    private readonly CustomHttpClientHandler _httpClientHandler;
-    private readonly IHttpClientFactory _httpClientFactory;
+    readonly ConcurrentDictionary<string, Lazy<OpenIdConnectOptions>> _cache;
+    readonly IOptionsFactory<OpenIdConnectOptions> _optionsFactory;
+    readonly IIdentityProviderSelector _idpSelector;
+    readonly IConfigurationManager<OpenIdConnectConfiguration> _configurationManager;
+    readonly CustomHttpClientHandler _httpClientHandler;
+    readonly IHttpClientFactory _httpClientFactory;
 
     public OpenIdConnectOptionsProvider(
         IOptionsFactory<OpenIdConnectOptions> optionsFactory,

@@ -180,7 +180,8 @@ In particular, a 'SpidCie' section can be added to the configuration which has t
         "AuthorityHints": [ "http://trust-anchor.org:8000" ],
         "TrustMarks": [
           {
-            "id": "https://www.spid.gov.it/openid-federation/agreement/sp-private",
+            "id": "https://preprod.oidc.registry.servizicie.interno.gov.it/intermediate/private",
+            "issuer": "https://preprod.oidc.registry.servizicie.interno.gov.it"
             "trust_mark": "eyJhbGc...."
           }
         ],
@@ -200,8 +201,18 @@ In particular, a 'SpidCie' section can be added to the configuration which has t
         "MetadataPolicy": {},
         "RelyingParties": [
           {
+            "AuthorityHints": [
+                "http://aspnetcore.aggregator.org:5000/"
+            ],
             "Id": "http://aspnetcore.aggregator.org:5000/TestRP/",
             "Name": "RP Test",
+            "OpenIdCoreCertificates": [
+                {
+                    "Algorithm": "RS256", //Or RSA-OAEP-256
+                    "Certificate": "base64",
+                    "KeyUsage": "Signature" //Or Encryption
+                }
+            ],
             "OrganizationName": "RP Test",
             "OrganizationType": "Public", // or Private
             "HomepageUri": "http://aspnetcore.aggregator.org:5000/TestRP/",
@@ -210,6 +221,9 @@ In particular, a 'SpidCie' section can be added to the configuration which has t
             "SecurityLevel": 2,
             "Contacts": [ "info@rptest.it" ],
             "LongSessionsEnabled": true,
+            "RedirectUris": [
+                "http://aspnetcore.aggregator.org:5000/TestRP/signin-oidc-spidcie"
+            ]
             "RequestedClaims": [
               "Name",
               "FamilyName",
@@ -218,9 +232,11 @@ In particular, a 'SpidCie' section can be added to the configuration which has t
               "DateOfBirth",
               "PlaceOfBirth"
             ],
+            "SecurityLevel": "L1", //Or L2 or L3
             "TrustMarks": [
               {
                 "Id": "https://registry.interno.gov.it/openid_relying_party/public/",
+                "Issuer": "http://aspnetcore.aggregator.org:5000",
                 "TrustMark": "eyJhbGc...."
               }
             ]
@@ -349,4 +365,12 @@ __automatic_client_registration__ and the adoption of the trust marks as mandato
 
 This software is released under the Apache 2 License by:
 
-- Daniele Giallonardo <danielegiallonardo83@gmail.com>.
+- Daniele Giallonardo
+- Giulio Maffei (A Software Factory s.r.l.)
+
+
+
+## Acknowledgments
+A special thank to "A Software Factory s.r.l." for their valuable support and contributions to this project. Their technical assistance and resources have been instrumental in advancing and optimizing our work.
+
+We appreciate their expertise and commitment, which have significantly enhanced the quality and innovation of the project.

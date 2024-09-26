@@ -1,14 +1,13 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Primitives;
-using Spid.Cie.OIDC.AspNetCore.Models;
 using System;
 using System.Threading.Tasks;
 
 namespace Spid.Cie.OIDC.AspNetCore.Middlewares;
 
-internal class CallbackRewriteMiddleware
+class CallbackRewriteMiddleware
 {
-    private readonly RequestDelegate _next;
+    readonly RequestDelegate _next;
 
     public CallbackRewriteMiddleware(RequestDelegate next)
     {
@@ -18,12 +17,11 @@ internal class CallbackRewriteMiddleware
     public async Task Invoke(HttpContext context)
     {
         CheckAndReplaceCallbackPath(context, SpidCieConst.CallbackPath);
-
         CheckAndReplaceCallbackPath(context, SpidCieConst.SignedOutCallbackPath);
-
         CheckAndReplaceCallbackPath(context, SpidCieConst.RemoteSignOutPath);
 
         await _next(context);
+
         return;
     }
 

@@ -7,12 +7,21 @@ namespace Spid.Cie.OIDC.AspNetCore.Services;
 
 public interface ICryptoService
 {
-    string CreateClientAssertion(string aud, string clientId, X509Certificate2 certificate);
-    string DecodeJose(string jose, X509Certificate2 certificate);
     string DecodeJWT(string jwt);
+
     string DecodeJWTHeader(string jwt);
+
+    RSA GetRSAPublicKey(JsonWebKey key);
+
     JWKS GetJWKS(List<X509Certificate2> certificates);
-    RSA GetRSAPublicKey(Models.JsonWebKey key);
-    string CreateJWT(X509Certificate2 certificate, object payload);
+
     string ValidateJWTSignature(string jwt, RSA publicKey);
+
+    JWKS GetJWKS(List<RPOpenIdCoreCertificate> certificates);
+
+    string DecodeJose(string jose, X509Certificate2 certificate);
+
+    string CreateJWT(X509Certificate2 certificate, object payload);
+
+    string CreateClientAssertion(string aud, string clientId, X509Certificate2 certificate);
 }

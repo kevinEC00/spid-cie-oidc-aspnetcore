@@ -5,20 +5,13 @@ using System.Text.Json.Serialization;
 namespace Spid.Cie.OIDC.AspNetCore.Models;
 
 [ExcludeFromCodeCoverage]
-internal class JwtToken
+class ConfigurationBaseInfo
 {
-#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
     [JsonPropertyName("iss")]
-    public string Issuer { get; set; }
+    public string? Issuer { get; set; }
 
     [JsonPropertyName("sub")]
-    public string Subject { get; set; }
-
-    [JsonPropertyName("jti")]
-    public string Jti { get; set; }
-
-    [JsonPropertyName("aud")]
-    public string[] Audiences { get; set; }
+    public string? Subject { get; set; }
 
     [JsonIgnore()]
     public DateTimeOffset IssuedAt { get; set; }
@@ -39,5 +32,4 @@ internal class JwtToken
         get => ExpiresOn.ToUnixTimeSeconds();
         set => ExpiresOn = DateTimeOffset.FromUnixTimeSeconds(value);
     }
-#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 }
