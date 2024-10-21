@@ -113,7 +113,8 @@ class RPOpenIdFederationMiddleware
             Issuer = rp.Id,
             Subject = rp.Id,
             TrustMarks = rp.TrustMarks,
-            JWKS = cryptoService.GetJWKS(rp.OpenIdFederationCertificates),
+            //JWKS = cryptoService.GetJWKS(rp.OpenIdFederationCertificates),
+            JWKS = cryptoService.GetJWKS(rp.OpenIdCoreCertificates),
             Metadata = new RPMetadata_SpidCieOIDCConfiguration()
             {
                 OpenIdRelyingParty = new RP_SpidCieOIDCConfiguration()

@@ -81,12 +81,12 @@ public static class OptionsHelpers
                 AuthorityHints = aggregatorSection.GetSection("AuthorityHints").Get<List<string>?>() ?? new List<string>(),
                 OrganizationType = aggregatorSection.GetValue<string?>("OrganizationType") ?? string.Empty,
                 Extension = aggregatorSection.GetValue<string?>("Extension") ?? string.Empty,
-                TrustMarks = aggregatorSection.GetSection("TrustMarks").GetChildren()
+                TrustMarks = aggregatorSection.GetSection("trust_marks").GetChildren()
                     .Select(trustMarksSection => new TrustMarkDefinition()
                     {
-                        Id = trustMarksSection.GetValue<string>("Id"),
-                        Issuer = trustMarksSection.GetValue<string>("Issuer"),
-                        TrustMark = trustMarksSection.GetValue<string>("TrustMark")
+                        Id = trustMarksSection.GetValue<string>("id"),
+                        Issuer = trustMarksSection.GetValue<string>("iss"),
+                        TrustMark = trustMarksSection.GetValue<string>("trust_mark")
                     }).ToList(),
                 //OpenIdCoreCertificates = aggregatorSection.GetSection("OpenIdCoreCertificates").GetChildren()
                 //    .Select(GetCertificate)
@@ -117,12 +117,12 @@ public static class OptionsHelpers
                     PolicyUri = relyingPartySection.GetValue<string?>("PolicyUri") ?? string.Empty,
                     LongSessionsEnabled = relyingPartySection.GetValue<bool?>("LongSessionsEnabled") ?? false,
                     AuthorityHints = new List<string>() { aggregator.Id },
-                    TrustMarks = relyingPartySection.GetSection("TrustMarks").GetChildren()
+                    TrustMarks = relyingPartySection.GetSection("trust_marks").GetChildren()
                         .Select(trustMarksSection => new TrustMarkDefinition()
                         {
-                            Id = trustMarksSection.GetValue<string>("Id"),
-                            Issuer = trustMarksSection.GetValue<string>("Issuer"),
-                            TrustMark = trustMarksSection.GetValue<string>("TrustMark")
+                            Id = trustMarksSection.GetValue<string>("id"),
+                            Issuer = trustMarksSection.GetValue<string>("iss"),
+                            TrustMark = trustMarksSection.GetValue<string>("trust_mark")
                         }).ToList(),
                     OpenIdFederationCertificates = aggregator.OpenIdFederationCertificates,
                     //OpenIdCoreCertificates = aggregator.OpenIdCoreCertificates,
