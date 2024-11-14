@@ -1,0 +1,30 @@
+name: spid_cie_oidc_release
+
+on:
+  release:
+    types: [ published ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET 8.0.x
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 8.0.x
+    - name: Restore dependencies
+      run: dotnet restore
+      working-directory: src
+    - name: Build
+      run: dotnet build --no-restore
+      working-directory: src
+    - name: Test
+      run: dotnet test --no-build --verbosity normal 
+      working-directory: src
+    - name: Create package
+      run: dotnet pack -c Release -p:PackageVersion=${{ github.event.release.tag_name }} --output nupkgs
+      working-directory: src
+    - name: Publish package
+      run: dotnet nuget push nupkgs/Spid.Cie.OIDC.AspNetCore.${{ github.event.release.tag_name }}.nupkg --api-key "${{ secrets.NUGET_APIKEY }}" --source https://api.nuget.org/v3/index.json --skip-duplicate
+      working-directory: src
