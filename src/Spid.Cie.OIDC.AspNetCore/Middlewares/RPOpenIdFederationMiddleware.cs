@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
 using Spid.Cie.OIDC.AspNetCore.Helpers;
 using Spid.Cie.OIDC.AspNetCore.Models;
@@ -36,7 +36,6 @@ class RPOpenIdFederationMiddleware
             .Replace(SpidCieConst.EntityConfigurationPath, "")
             .EnsureTrailingSlash();
         var rp = rps.FirstOrDefault(r => uri.EnsureTrailingSlash().Equals(r.Id.EnsureTrailingSlash(), StringComparison.OrdinalIgnoreCase));
-
         if (rp != null)
         {
             var certificate = rp.OpenIdFederationCertificates?.FirstOrDefault();
@@ -105,6 +104,8 @@ class RPOpenIdFederationMiddleware
 
     private RPEntityConfiguration GetEntityConfiguration(RelyingParty rp, ICryptoService cryptoService)
     {
+        var jwks = cryptoService.GetJWKS(rp.OpenIdCoreCertificates);
+
         return new RPEntityConfiguration()
         {
             ExpiresOn = DateTimeOffset.UtcNow.AddMinutes(SpidCieConst.EntityConfigurationExpirationInMinutes),
@@ -114,7 +115,7 @@ class RPOpenIdFederationMiddleware
             Subject = rp.Id,
             TrustMarks = rp.TrustMarks,
             //JWKS = cryptoService.GetJWKS(rp.OpenIdFederationCertificates),
-            JWKS = cryptoService.GetJWKS(rp.OpenIdCoreCertificates),
+            JWKS = jwks,
             Metadata = new RPMetadata_SpidCieOIDCConfiguration()
             {
                 OpenIdRelyingParty = new RP_SpidCieOIDCConfiguration()
@@ -124,7 +125,7 @@ class RPOpenIdFederationMiddleware
                     GrantTypes = rp.LongSessionsEnabled
                         ? new() { SpidCieConst.AuthorizationCode, SpidCieConst.RefreshToken }
                         : new() { SpidCieConst.AuthorizationCode },
-                    JWKS = cryptoService.GetJWKS(rp.OpenIdCoreCertificates),
+                    JWKS = jwks,
                     RedirectUris = rp.RedirectUris,
                     ResponseTypes = new() { SpidCieConst.ResponseType }
                 },

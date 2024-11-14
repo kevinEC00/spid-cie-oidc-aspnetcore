@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Text.Json.Serialization;
 
@@ -42,10 +42,10 @@ sealed class RP_SpidCieOIDCConfiguration
     public string SubjectType { get; } = SpidCieConst.RPSubjectType;
 
     [JsonPropertyName("userinfo_encrypted_response_enc")]
-    public string? UserinfoEncryptedResponseEnc { get; set; } = "A128CBC-HS256";
+    public string? UserinfoEncryptedResponseEnc { get; set; } = "A256CBC-HS512";
 
     [JsonPropertyName("userinfo_encrypted_response_alg")]
-    public string? UserinfoEncryptedResponseAlg { get; set; } = "RSA-OAEP-256";
+    public string? UserinfoEncryptedResponseAlg { get; set; } = "RSA-OAEP";
 
     [JsonPropertyName("userinfo_signed_response_alg")]
     public string? UserinfoSignedResponseAlg { get; set; } = "RS256";
